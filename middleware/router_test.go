@@ -1,4 +1,4 @@
-package router_test
+package middleware_test
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/siadat/markfile/router"
+	"github.com/siadat/markfile/middleware"
 )
 
 type Handler struct {
@@ -44,14 +44,14 @@ func check(url, expected string) error {
 }
 
 func TestRouter(t *testing.T) {
-	h := &router.Handler{
+	h := middleware.Router(
 		func(r *http.Request) http.Handler {
 			if r.URL.Path == "/1" {
 				return newHandler("expected1")
 			}
 			return newHandler("expected2")
 		},
-	}
+	)
 
 	ts := httptest.NewServer(h)
 	defer ts.Close()

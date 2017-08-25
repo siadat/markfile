@@ -1,4 +1,4 @@
-package markdown
+package middleware
 
 import (
 	"io"
@@ -8,23 +8,23 @@ import (
 	"github.com/russross/blackfriday"
 )
 
-type Handler struct {
+type Markdown struct {
 	Root http.Dir
 }
 
-func (m *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (m *Markdown) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	f, err := m.Root.Open(r.URL.Path)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	err = convert(f, w)
+	err = renderMarkdown(f, w)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
 
-func convert(r io.Reader, w io.Writer) error {
+func renderMarkdown(r io.Reader, w io.Writer) error {
 	buf, err := ioutil.ReadAll(r)
 	if err != nil {
 		return err

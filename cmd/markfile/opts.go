@@ -1,4 +1,4 @@
-package flags
+package main
 
 import (
 	"bytes"
@@ -26,7 +26,7 @@ func (o *opts) Root() string {
 	return o.root
 }
 
-func Parse() *opts {
+func parseOpts() *opts {
 	flagPort := "8080"
 	if len(os.Args) >= 2 {
 		flagPort = os.Args[1]
