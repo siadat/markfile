@@ -31,8 +31,33 @@ func renderMarkdown(r io.Reader, w io.Writer) error {
 	}
 
 	buf = blackfriday.MarkdownCommon(buf)
-	w.Write([]byte(`<!DOCTYPE html> <html> <head> <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> </head>`))
+	w.Write([]byte(`<!DOCTYPE html> <html>
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<style>
+
+	code { background:#eee; padding:0 2px; }
+	pre {
+		background:#eee;
+		padding:20px;
+		display:block;
+		overflow: auto;
+	}
+	pre code { padding:0; }
+
+	#wrapper {
+		max-width:600px;
+		margin:0 auto;
+	}
+
+	</style>
+	</head>
+	<div id="wrapper">
+	`))
 	w.Write(buf)
-	w.Write([]byte(`</body> </html>`))
+	w.Write([]byte(`
+	</div>
+	</body> </html>
+	`))
 	return nil
 }
