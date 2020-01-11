@@ -36,6 +36,7 @@ func renderMarkdown(r io.Reader, w io.Writer) error {
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<style>
 
+	img { max-width: 100%; }
 	code { background:#eee; padding:0 2px; }
 	pre {
 		background:#eee;
@@ -45,9 +46,14 @@ func renderMarkdown(r io.Reader, w io.Writer) error {
 	}
 	pre code { padding:0; }
 
+	body {
+		background:#eee;
+	}
 	#wrapper {
 		max-width:600px;
 		margin:0 auto;
+		background:#fff;
+		padding:50px;
 	}
 
 	</style>
